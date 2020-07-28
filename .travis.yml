@@ -15,7 +15,7 @@ after_success:
     - docker build -t kozhinm/multi-server ./server
     - docker build -t kozhinm/multi-worker ./worker
     # Takse those images and push them to docker hub
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" -- password-stdin
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker push kozhinm/multi-client
     - docker push kozhinm/multi-nginx
     - docker push kozhinm/multi-server
