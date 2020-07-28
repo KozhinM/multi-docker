@@ -2,37 +2,39 @@
     "AWSEBDockerrunVersion": 2,
     "containerDefinitions": [
         {
-            "name": "client",
-            "image": "kozhinm/multi-client",
-            "hostname": "client",
-            "essential": false,
-            "memory": 128
+            "Name": "client",
+            "Image": { 
+                "Name": "kozhinm/multi-client" 
+            },
+            "Hostname": "client",
+            "Essential": false,
+            "Memory": 128
         },
         {
-            "name": "server",
-            "image": "kozhinm/multi-server",
-            "hostname": "api",
-            "essential": false,
-            "memory": 128
+            "Name": "server",
+            "Image": { "Name": "kozhinm/multi-server" },
+            "Hostname": "api",
+            "Essential": false,
+            "Memory": 128
         },
         {
-            "name": "worker",
-            "image": "kozhinm/multi-worker",
-            "essential": false,
-            "memory": 128
+            "Name": "worker",
+            "Image": { "Name": "kozhinm/multi-worker" },
+            "Essential": false,
+            "Memory": 128
         },
         {
-            "name": "nginx",
-            "image": "kozhinm/multi-nginx",
-            "essential": true,
-            "memory": 128,
-            "portMappings": [
+            "Name": "nginx",
+            "Image": { "Name": "kozhinm/multi-nginx" },
+            "Essential": true,
+            "Memory": 128,
+            "PortMappings": [
                 {
                     "hostPort": 80,
                     "containerPort": 80
                 }
             ],
-            "links": ["client", "server"]
+            "Links": ["client", "server"]
         }
     ]
-}
+} 
