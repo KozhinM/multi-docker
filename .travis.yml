@@ -1,0 +1,22 @@
+language: generic
+sudo: required
+services:
+    - docker
+
+before_install:
+    - docker build -t kozhinm/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+    - docker run -e CI=true kozhinm/react-test npm test
+
+after_success:
+    - docker build -t kozhinm/multi-client ./client
+    - docker build -t kozhinm/multi-nginx ./nginx
+    - docker build -t kozhinm/multi-server ./server
+    - docker build -t kozhinm/multi-worker ./worker
+    # Takse those images and push them to docker hub
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" -- password-stdin
+    - docker push kozhinm/multi-client
+    - docker push kozhinm/multi-nginx
+    - docker push kozhinm/multi-server
+    - docker push kozhinm/multi-worker
